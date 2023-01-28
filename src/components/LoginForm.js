@@ -15,7 +15,7 @@ const LoginForm = ({onLogin, onError}) => {
         e.preventDefault();
         // send the login request to the backend, store the token if successful
         const response = await axios.post(`${baseUrl}/api/login`, {username, password})
-        console.debug(response);
+        // console.debug(response);
         if (response.status === 200) {
             onLogin(response.data)
         }
