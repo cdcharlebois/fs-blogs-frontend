@@ -14,12 +14,11 @@ const LoginForm = ({onLogin, onError}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // send the login request to the backend, store the token if successful
-        const response = await axios.post(`${baseUrl}/api/login`, {username, password})
-        // console.debug(response);
-        if (response.status === 200) {
+        try {
+            const response = await axios.post(`${baseUrl}/api/login`, {username, password})
             onLogin(response.data)
         }
-        else {
+        catch (ex) {
             onError("Login Failed");
         }
     }
