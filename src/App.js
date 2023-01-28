@@ -22,13 +22,17 @@ const App = () => {
     setUser(userData);
     window.localStorage.setItem("user", JSON.stringify(userData));
   }
+  const handleLogout = () => {
+    window.localStorage.removeItem("user");
+    setUser(null);
+  }
   return (
     <div>
       {user === null ? (
         <LoginForm onLogin={handleLogin}/>
       ) : (
         <div>
-          <p>{user.user} is logged in</p>
+          <p>{user.user} is logged in <button onClick={handleLogout}>Logout</button></p>
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
