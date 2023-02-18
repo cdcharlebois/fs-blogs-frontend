@@ -33,6 +33,8 @@ const App = () => {
     _showGoodMessage("You have logged out.")
   }
   const handleCreateBlog = (newBlog) => {
+    // username is stored in the LS item under the `user` key. Use that to populate the username for naive update
+    newBlog.user = {username: user.user}
     setBlogs([...blogs, newBlog]);
     _showGoodMessage(`Your new blog with title ${newBlog.title} has been created`)
   }
