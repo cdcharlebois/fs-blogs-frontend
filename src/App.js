@@ -36,6 +36,11 @@ const App = () => {
     setBlogs([...blogs, newBlog]);
     _showGoodMessage(`Your new blog with title ${newBlog.title} has been created`)
   }
+  const handleUpdateBlog = async (blog) => {
+    const updatedBlog = await blogService.updateBlog(blog);
+    const newBlogs = blogs.filter((b) => b.id !== blog.id);
+    setBlogs([...newBlogs, updatedBlog].sort((a, b) => b.likes - a.likes));
+  };
   const handleLoginError = (message) => {
     _showBadMessage(message)
   };
@@ -71,13 +76,17 @@ const App = () => {
             {user.user} is logged in{" "}
             <button onClick={handleLogout}>Logout</button>
           </p>
-          {isAddingBlog ? <div>
-            <BlogForm onCreateBlog={handleCreateBlog} token={user.token} />
-            <button onClick={handleToggleShowBlogForm}>cancel</button>
-          </div> : <button onClick={handleToggleShowBlogForm}>add blog</button> }
+          {isAddingBlog ? (
+            <div>
+              <BlogForm onCreateBlog={handleCreateBlog} token={user.token} />
+              <button onClick={handleToggleShowBlogForm}>cancel</button>
+            </div>
+          ) : (
+            <button onClick={handleToggleShowBlogForm}>add blog</button>
+          )}
           <h2>blogs</h2>
           {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} updateBlog={handleUpdateBlog} />
           ))}
         </div>
       )}
