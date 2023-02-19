@@ -41,6 +41,11 @@ const App = () => {
     const newBlogs = blogs.filter((b) => b.id !== blog.id);
     setBlogs([...newBlogs, updatedBlog].sort((a, b) => b.likes - a.likes));
   };
+  const handleDeleteBlog = async (blog) => {
+    await blogService.deleteBlog(blog);
+    const newBlogs = blogs.filter((b) => b.id !== blog.id);
+    setBlogs(newBlogs);
+  }
   const handleLoginError = (message) => {
     _showBadMessage(message)
   };
@@ -86,7 +91,7 @@ const App = () => {
           )}
           <h2>blogs</h2>
           {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} updateBlog={handleUpdateBlog} />
+            <Blog key={blog.id} blog={blog} updateBlog={handleUpdateBlog} onDeleteBlog={handleDeleteBlog} />
           ))}
         </div>
       )}

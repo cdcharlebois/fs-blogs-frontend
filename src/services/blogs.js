@@ -29,5 +29,10 @@ const updateBlog = async (blog, token) => {
   return response.data
 }
 
+const deleteBlog = async (blog) => {
+  const response = await axios.delete(`${baseUrl}/${blog.id}`);
+  return response.data
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, createBlog, updateBlog }
+export default { getAll, createBlog, updateBlog, deleteBlog }
